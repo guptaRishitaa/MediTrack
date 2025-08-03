@@ -1,5 +1,6 @@
 package com.meditrack.patientservice.service;
 
+import com.meditrack.patientservice.dto.PatientRequestDTO;
 import com.meditrack.patientservice.dto.PatientResponseDTO;
 import com.meditrack.patientservice.mapper.PatientMapper;
 import com.meditrack.patientservice.model.Patient;
@@ -22,7 +23,10 @@ public class PatientService {
         List<PatientResponseDTO> patientResponseDTOs = patients.stream().map(PatientMapper::toDTO).toList();
 
         return patientResponseDTOs;
+    }
 
-
+    public PatientResponseDTO createPatient(PatientRequestDTO patientRequestDTO){
+        Patient newPatient = patientRepository.save(PatientMapper.toModel(patientRequestDTO));
+        return PatientMapper.toDTO(newPatient);
     }
 }
